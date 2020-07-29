@@ -1,99 +1,194 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {{-- Bootstrap CSS --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    {{-- Titulo --}}
+    <title>Laravel</title>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!--DataTables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/r-2.2.5/datatables.min.css"/>
+    <!--Font Awesome-->
+    <script src="https://use.fontawesome.com/e508771086.js"></script>
+    <style type="text/css">
+        #divLoading {
+            display: none;
             }
 
-            .full-height {
-                height: 100vh;
+        #divLoading.show {
+            display: block;
+            position: fixed;
+            z-index: 9999;
+            background: rgba(102, 102, 102, 0.5) url('{{ asset('img/loading.svg') }}') no-repeat center;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            top: 0;
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-md-12">
+            <a class="btn btn-info float-right" href="{{ route('login') }}">Login</a>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Usuarios
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="card-body">
+                    <table class="table table-striped table-bordered" id="usuarios" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Contraseña</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal"
+                            data-target="#modalAddUser">
+                        Agregar Usuario
+                    </button>
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMovie">
+                        Agregar Pelicula
+                    </button>--}}
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+
+<!-- Modals-->
+<!-- Nuevo Usuario -->
+<div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('usuarios.store') }}" method="post">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Nombre"
+                               aria-describedby="name">
+                        <small id="name" class="text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Apellido</label>
+                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Apellido"
+                               aria-describedby="last_name">
+                        <small id="last_name" class="text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Edad</label>
+                        <input type="text" name="age" id="age" class="form-control" placeholder="Edad"
+                               aria-describedby="age">
+                        <small id="age" class="text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Correo"
+                               aria-describedby="email">
+                        <small id="email" class="text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Teléfono</label>
+                        <input type="text" name="telephone" id="telephone" class="form-control" placeholder="Teléfono"
+                               aria-describedby="telephone">
+                        <small id="telephone" class="text-muted">10 dígitos</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="add_user_submit">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Película -->
+<div class="modal fade" id="addMovie" tabindex="-1" role="dialog" aria-labelledby="modalAddMovie" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nueva Película</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="movie">Pelicula</label>
+                        <input type="text" name="movie" id="movie" class="form-control" placeholder="Pelicula"
+                               aria-describedby="movie">
+                        <small id="movie" class="text-muted">Nombre</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Género</label>
+                        <select name="genero" id="genero" class="form-control" aria-describedby="genero">
+                            <option value="" selected>Seleccione un género</option>
+                        </select>
+                        <small id="genero" class="text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_estreno">Fecha Estreno</label>
+                        <input type="text" name="fecha_estreno" id="fecha_estreno" class="form-control"
+                               placeholder="Fecha Estreno"
+                               aria-describedby="fecha_estreno">
+                        <small id="fecha_estreno" class="text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion</label>
+                        <input type="text" name="descripcion" id="descripcion" class="form-control"
+                               placeholder="Descripcion"
+                               aria-describedby="descripcion">
+                        <small id="descripcion" class="text-muted"></small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Loading-->
+<div id="divLoading"></div>
+<!--Loading-->
+
+<!--Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!--DataTables-->
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/r-2.2.5/datatables.min.js"></script>
+<!--JQuery Validation-->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
+<!--Notify JS-->
+<script src="{{ asset('js/notify.min.js') }}"></script>
+{{----}}
+<script src="{{ asset('js/listar.js') }}"></script>
+</body>
 </html>

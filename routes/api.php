@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 | API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| Aquí es donde puede registrar rutas API para su aplicación. Estos
+| RouteServiceProvider carga las rutas dentro de un grupo que
+| se le asigna el grupo de middleware "api". ¡Disfruta creando tu API!
 |
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/usuarios', 'UsuarioController@index')->name('usuarios.all');
+Route::post('/usuarios', 'UsuarioController@store')->name('usuarios.store');
