@@ -61,9 +61,6 @@
                             data-target="#modalAddUser">
                         Agregar Usuario
                     </button>
-                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMovie">
-                        Agregar Pelicula
-                    </button>--}}
                 </div>
             </div>
         </div>
@@ -119,54 +116,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="add_user_submit">Registrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Película -->
-<div class="modal fade" id="addMovie" tabindex="-1" role="dialog" aria-labelledby="modalAddMovie" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="" method="post">
-                <div class="modal-header">
-                    <h5 class="modal-title">Nueva Película</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="movie">Pelicula</label>
-                        <input type="text" name="movie" id="movie" class="form-control" placeholder="Pelicula"
-                               aria-describedby="movie">
-                        <small id="movie" class="text-muted">Nombre</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="genero">Género</label>
-                        <select name="genero" id="genero" class="form-control" aria-describedby="genero">
-                            <option value="" selected>Seleccione un género</option>
-                        </select>
-                        <small id="genero" class="text-muted"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha_estreno">Fecha Estreno</label>
-                        <input type="text" name="fecha_estreno" id="fecha_estreno" class="form-control"
-                               placeholder="Fecha Estreno"
-                               aria-describedby="fecha_estreno">
-                        <small id="fecha_estreno" class="text-muted"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripcion</label>
-                        <input type="text" name="descripcion" id="descripcion" class="form-control"
-                               placeholder="Descripcion"
-                               aria-describedby="descripcion">
-                        <small id="descripcion" class="text-muted"></small>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Registrar</button>
                 </div>
             </form>
         </div>
