@@ -9,15 +9,30 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- Bootstrap CSS --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!--Font Awesome-->
+    <script src="https://use.fontawesome.com/e508771086.js"></script>
+    <style type="text/css">
+        #divLoading {
+            display: none;
+            }
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        #divLoading.show {
+            display: block;
+            position: fixed;
+            z-index: 9999;
+            background: rgba(102, 102, 102, 0.5) url('{{ asset('img/loading.svg') }}') no-repeat center;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            top: 0;
+            }
+    </style>
     @yield('styles')
 </head>
 <body>
@@ -80,7 +95,15 @@
     <main class="py-4">
         @yield('content')
     </main>
+
+    <!--Loading-->
+    <div id="divLoading"></div>
+    <!--Loading-->
 </div>
+<!--Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 @yield('scripts')
 </body>
 </html>

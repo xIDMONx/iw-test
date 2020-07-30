@@ -2,18 +2,22 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
- * @property string $name
- * @property string $last_name
- * @property string $age
- * @property string $email
- * @property string $telephone
- * @property string $password
+ *
+ * @property string     $name
+ * @property string     $last_name
+ * @property string     $age
+ * @property string     $email
+ * @property string     $telephone
+ * @property string     $password
+ * @property MovieModel $movies
  *
  * @package App
  */
@@ -62,5 +66,13 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->name} {$this->last_name}";
+    }
+    
+    /**
+     * @return HasMany
+     */
+    public function movies()
+    {
+        return $this->hasMany(MovieModel::class, 'id_user');
     }
 }

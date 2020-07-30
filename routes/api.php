@@ -19,3 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/usuarios', 'UsuarioController@index')->name('usuarios.all');
 Route::post('/usuarios', 'UsuarioController@store')->name('usuarios.store');
+
+Route::get('/usuario/{id}/movies', 'MovieController@index')->name('movies');
+Route::get('/movie/{movie}', 'MovieController@show')->name('movie');
+Route::post('/usuario/{id}/movies', 'MovieController@store')->name('movies.store');
+Route::put('/movie/{movie}', 'MovieController@update')->name('movies.update');
+Route::delete('/movie/{movie}', 'MovieController@delete')->name('movies.delete');
